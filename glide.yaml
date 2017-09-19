@@ -1,0 +1,3 @@
+package: github.com/goline/cors
+import:
+- package: github.com/goline/lapi
