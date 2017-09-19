@@ -10,5 +10,5 @@ func (l *Loader) Load(app lapi.App) {
 	if l.AccessControlAllowOrigin == "" {
 		l.AccessControlAllowOrigin = "*"
 	}
-	app.Router().Options("/{uri:.*}", &CorsHandler{l.AccessControlAllowOrigin})
+	app.Router().Options("/.*", &CorsHandler{l.AccessControlAllowOrigin})
 }
