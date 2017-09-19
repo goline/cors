@@ -3,12 +3,9 @@ package cors
 import "github.com/goline/lapi"
 
 type Loader struct {
-	AccessControlAllowOrigin string
+	Policy Policy
 }
 
 func (l *Loader) Load(app lapi.App) {
-	if l.AccessControlAllowOrigin == "" {
-		l.AccessControlAllowOrigin = "*"
-	}
-	app.Router().Options("/.*", &CorsHandler{l.AccessControlAllowOrigin})
+	app.Router().Options("/.*", &Handler{l.Policy})
 }
