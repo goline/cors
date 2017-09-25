@@ -1,11 +1,15 @@
 package cors
 
-import "github.com/goline/lapi"
+import . "github.com/goline/lapi"
 
-type Loader struct {
+func NewLoader(policy Policy) Loader {
+	return &corsLoader{policy}
+}
+
+type corsLoader struct {
 	Policy Policy
 }
 
-func (l *Loader) Load(app lapi.App) {
+func (l *corsLoader) Load(app App) {
 	app.Router().Options("/.*", NewCorsHandler(l.Policy))
 }
