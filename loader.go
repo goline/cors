@@ -7,5 +7,5 @@ type Loader struct {
 }
 
 func (l *Loader) Load(app lapi.App) {
-	app.Router().Options("/.*", &Handler{l.Policy})
+	app.Router().Options("/.*", NewCorsHandler(l.Policy))
 }

@@ -1,37 +1,19 @@
 package cors
 
 import (
-	"github.com/goline/lapi"
-	"strconv"
+	. "github.com/goline/lapi"
 )
 
-type Handler struct {
+func NewCorsHandler(policy Policy) Handler {
+	return &corsHandler{Policy: policy}
+}
+
+type corsHandler struct {
 	Policy Policy
 }
 
-func (h *Handler) Handle(connection lapi.Connection) (interface{}, error) {
-	response := connection.Response()
-	h.applyResponseHeader(response.Header())
+func (h *corsHandler) Handle(c Connection) (interface{}, error) {
+	response := c.Response()
+	h.Policy.Apply(response.Header())
 	return nil, response.Send()
-}
-
-func (h *Handler) applyResponseHeader(header lapi.Header) {
-	if h.Policy.AllowOrigin != "" {
-		header.Set("Access-Control-Allow-Origin", h.Policy.AllowOrigin)
-	}
-	if h.Policy.AllowCredentials != "" {
-		header.Set("Access-Control-Allow-Credentials", h.Policy.AllowCredentials)
-	}
-	if h.Policy.AllowHeaders != "" {
-		header.Set("Access-Control-Allow-Headers", h.Policy.AllowHeaders)
-	}
-	if h.Policy.AllowMethods != "" {
-		header.Set("Access-Control-Allow-Methods", h.Policy.AllowMethods)
-	}
-	if h.Policy.ExposeHeaders != "" {
-		header.Set("Access-Control-Expose-Headers", h.Policy.ExposeHeaders)
-	}
-	if h.Policy.MaxAge != 0 {
-		header.Set("Access-Control-Max-Age", strconv.Itoa(h.Policy.MaxAge))
-	}
 }
