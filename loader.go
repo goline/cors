@@ -11,5 +11,5 @@ type corsLoader struct {
 }
 
 func (l *corsLoader) Load(app App) {
-	app.Router().Options("/.*", NewCorsHandler(l.Policy))
+	app.Router().Any("/.*", NewCorsHandler(l.Policy))
 }
