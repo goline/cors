@@ -2,6 +2,7 @@ package cors
 
 import (
 	. "github.com/goline/lapi"
+	"net/http"
 )
 
 type corsHook struct {
@@ -9,7 +10,9 @@ type corsHook struct {
 }
 
 func (h *corsHook) SetUp(c Connection) error {
-	h.Policy.Apply(c.Response().Header())
+	if c.Request().Method() == http.MethodGet {
+		h.Policy.Apply(c.Response().Header())
+	}
 
 	return nil
 }
