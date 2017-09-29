@@ -4,10 +4,6 @@ import (
 	. "github.com/goline/lapi"
 )
 
-func NewCorsHandler(policy Policy) Handler {
-	return &corsHandler{Policy: policy}
-}
-
 type corsHandler struct {
 	Policy Policy
 }
