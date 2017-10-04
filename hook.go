@@ -10,9 +10,7 @@ type corsHook struct {
 }
 
 func (h *corsHook) SetUp(c Connection) error {
-	if c.Request().Method() == http.MethodGet {
-		h.Policy.Apply(c.Response().Header())
-	}
+	h.Policy.Apply(c.Response().Header())
 
 	return nil
 }
