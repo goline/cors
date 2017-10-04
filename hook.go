@@ -2,7 +2,6 @@ package cors
 
 import (
 	. "github.com/goline/lapi"
-	"net/http"
 )
 
 type corsHook struct {
