@@ -2,7 +2,7 @@ package cors
 
 import . "github.com/goline/lapi"
 
-func NewLoader(policy Policy) Loader {
+func NewCorsLoader(policy Policy) Loader {
 	return &corsLoader{policy}
 }
 
