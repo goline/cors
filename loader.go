@@ -2,12 +2,15 @@ package cors
 
 import . "github.com/goline/lapi"
 
-func NewCorsLoader(policy Policy) Loader {
-	return &corsLoader{policy}
+func NewCorsLoader(policy Policy, priority int) Loader {
+	l := &corsLoader{Policy: policy}
+	l.WithPriority(priority)
+	return l
 }
 
 type corsLoader struct {
 	Policy Policy
+	PriorityAware
 }
 
 func (l *corsLoader) Load(app App) {
