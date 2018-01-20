@@ -1,3 +1,4 @@
 package: github.com/goline/cors
 import:
 - package: github.com/goline/lapi
+  version: ~1.0.1
